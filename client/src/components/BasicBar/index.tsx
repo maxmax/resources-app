@@ -27,6 +27,11 @@ const pages: Page[] = [
   },
   {
     id: 3,
+    name: 'Tasks',
+    url: '/tasks',
+  },
+  {
+    id: 4,
     name: 'Users',
     url: '/users',
   },
