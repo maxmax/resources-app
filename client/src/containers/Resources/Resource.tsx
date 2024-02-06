@@ -5,12 +5,12 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import { BasicCard } from "../../components";
 
-import { getUser } from './api';
+import { getResource } from './api';
 
-export default function User() {
+export default function Resource() {
 
   const { id } = useParams();
-  const { status, data, error } = getUser(Number(id));
+  const { status, data, error } = getResource(Number(id));
 
   return (
     <Container maxWidth="sm">
@@ -22,9 +22,9 @@ export default function User() {
         ) : data ? (
           <>
             <BasicCard
-              title={data.name}
-              content={data.email}
-              link={'/users'}
+              title={data.title}
+              content={data.status}
+              link={'/resources'}
               linkText={'Back'}
             />
           </>

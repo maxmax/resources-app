@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { UserProps } from '../types';
 const API_URL = import.meta.env.VITE_REST_SERVER_API_URL;
 
-export const useUsers = () => {
+export const getUsers = () => {
   return useQuery<Array<UserProps>, Error>({
     queryKey: ['users'],
     queryFn: async () => {

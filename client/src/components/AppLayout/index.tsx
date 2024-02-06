@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
-import BasicBar from '../BasicBar';
+import BasicBar from '@/components/BasicBar';
 
 interface AppLayoutProps {
   children: React.ReactNode

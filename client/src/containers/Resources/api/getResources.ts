@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { ResourcesProps } from '../types';
+import { ResourceProps } from '../types';
 const API_URL = import.meta.env.VITE_REST_SERVER_API_URL;
 
-export const useResources = () => {
-  return useQuery<Array<ResourcesProps>, Error>({
+export const getResources = () => {
+  return useQuery<Array<ResourceProps>, Error>({
     queryKey: ['resources'],
     queryFn: async () => {
       const response = await fetch(`${API_URL}/resources/`);
@@ -12,7 +12,7 @@ export const useResources = () => {
         throw new Error('Failed to fetch resources');
       }
 
-      const data: Array<ResourcesProps> = await response.json();
+      const data: Array<ResourceProps> = await response.json();
       return data;
     },
   });

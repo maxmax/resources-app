@@ -1,4 +1,4 @@
-export interface ResourcesProps {
+export interface ResourceProps {
 	id: number;
 	createdAt: string;
 	updatedAt: string;
@@ -9,3 +9,9 @@ export interface ResourcesProps {
 	published: boolean;
 	authorId: number;
 }
+
+export type TableColumnProps = {
+  key: string;
+  label: string;
+  render: (data: ResourceProps) => React.ReactNode;
+};
