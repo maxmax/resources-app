@@ -1,12 +1,19 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import LinearProgress from '@mui/material/LinearProgress';
-import PageLayout from '@/components/PageLayout';
-import PageHeader from '@/components/PageHeader';
-import MainTable from '@/components/MainTable';
+import {
+  PageLayout,
+  PageHeader,
+  MainTable,
+  LinearLoading,
+} from '@/components';
 
-import { getUsers } from './api';
-import { UserProps, TableColumnProps } from './types';
+import { getUsers, UserProps } from '@/utils/api/users';
+
+export type TableColumnProps = {
+  key: string;
+  label: string;
+  render: (data: UserProps) => React.ReactNode;
+};
 
 const columns: TableColumnProps[] = [
   { key: 'id', label: '#', render: (data: UserProps) => data.id },
@@ -28,7 +35,7 @@ export default function Users() {
     <PageLayout>
       <PageHeader title='Users' />
       {status === 'loading' ? (
-        <LinearProgress />
+        <LinearLoading />
       ) : error instanceof Error ? (
         <span>Error: {error.message}</span>
       ) : (

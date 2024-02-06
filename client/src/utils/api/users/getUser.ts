@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { UserProps } from '../types';
+import { UserProps } from './types';
 const API_URL = import.meta.env.VITE_REST_SERVER_API_URL;
 
 const getUserById = async (id: number): Promise<UserProps> => {

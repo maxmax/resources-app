@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { ResourceProps } from '../types';
+import { ResourceProps } from './types';
 const API_URL = import.meta.env.VITE_REST_SERVER_API_URL;
 
 const getResourceById = async (id: number): Promise<ResourceProps> => {

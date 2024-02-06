@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Container from '@mui/material/Container';
+import Container from "@/components/Container";
 import BasicBar from '@/components/BasicBar';
 
 interface AppLayoutProps {

@@ -9,9 +9,3 @@ export interface ResourceProps {
 	published: boolean;
 	authorId: number;
 }
-
-export type TableColumnProps = {
-  key: string;
-  label: string;
-  render: (data: ResourceProps) => React.ReactNode;
-};

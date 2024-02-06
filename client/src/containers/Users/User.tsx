@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
-import { BasicCard } from "../../components";
+import { 
+  Container,
+  Box,
+  BasicCard, 
+  LinearLoading 
+} from "@/components";
 
-import { getUser } from './api';
+import { getUser } from '@/utils/api/users';
 
 export default function User() {
 
@@ -16,7 +18,7 @@ export default function User() {
     <Container maxWidth="sm">
       <Box sx={{ my: 4 }}>
         {status === 'loading' ? (
-          <LinearProgress />
+          <LinearLoading />
         ) : error instanceof Error ? (
           <span>Error: {error.message}</span>
         ) : data ? (

@@ -2,17 +2,17 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { 
   Container,
-  Box,
+  Box, 
   BasicCard, 
   LinearLoading 
 } from "@/components";
 
-import { getResource } from '@/utils/api/resources';
+import { getTask } from '@/utils/api/tasks';
 
-export default function Resource() {
+export default function Task() {
 
   const { id } = useParams();
-  const { status, data, error } = getResource(Number(id));
+  const { status, data, error } = getTask(Number(id));
 
   return (
     <Container maxWidth="sm">
@@ -25,8 +25,8 @@ export default function Resource() {
           <>
             <BasicCard
               title={data.title}
-              content={data.status}
-              link={'/resources'}
+              content={data.content}
+              link={'/tasks'}
               linkText={'Back'}
             />
           </>

@@ -1,13 +1,23 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import LinearProgress from '@mui/material/LinearProgress';
-import PageLayout from '@/components/PageLayout';
-import PageHeader from '@/components/PageHeader';
-import MainTable from '@/components/MainTable';
+import {
+  PageLayout,
+  PageHeader,
+  MainTable,
+  LinearLoading,
+} from '@/components';
 
-import { getResources } from './api';
-import { ResourceProps, TableColumnProps } from './types';
+import { 
+  getResources, 
+  ResourceProps,
+} from '@/utils/api/resources';
+
+export type TableColumnProps = {
+  key: string;
+  label: string;
+  render: (data: ResourceProps) => React.ReactNode;
+};
 
 const columns: TableColumnProps[] = [
   { key: 'id', label: '#', render: (data: ResourceProps) => data.id },
@@ -34,7 +44,7 @@ export default function Resources() {
     <PageLayout>
       <PageHeader title='Resources' />
       {status === 'loading' ? (
-        <LinearProgress />
+        <LinearLoading />
       ) : error instanceof Error ? (
         <span>Error: {error.message}</span>
       ) : (
