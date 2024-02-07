@@ -31,6 +31,7 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "sass": "^1.70.0",
     "typescript": "latest",
     "vite": "latest",
     "vite-plugin-eslint": "^1.8.1"

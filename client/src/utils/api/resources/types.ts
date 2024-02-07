@@ -1,3 +1,5 @@
+import { TaskProps } from '@/utils/api/tasks';
+
 export interface ResourceProps {
 	id: number;
 	createdAt: string;
@@ -8,4 +10,5 @@ export interface ResourceProps {
 	status: string;
 	published: boolean;
 	authorId: number;
+	tasks?: TaskProps[];
 }

@@ -1,0 +1,180 @@
+.gantt-layout {
+  --color-text: #272a2e;
+  --color-primary-dark: #0195e4;
+  --color-primary-light: #9ddcff;
+  --color-secondary: #4be35a;
+  --color-tertiary: #f7f7f7;
+  --color-orange: #ef5350;
+  --color-outline: #e9eaeb;
+  --color-s: #f7f7f7;
+	--border-color: var(--color-outline);
+  --border-radius: 5px;
+  --cell-height: 24px;
+  --cell-height2: 72px;
+  --cell-height3: 22px;
+  --cell-height4: 44px;
+  --cell-height5: 66px;
+  --cell-height6: 88px;
+  --cell-height7: 110px;
+  --cell-height8: 132px;
+  padding: 0rem;
+}
+
+.gantt-space-container {
+	border-radius: 0px;
+	border: 1px solid var(--border-color);
+	display: flex;
+	box-sizing: border-box;
+	zoom: 1;
+
+	.gantt-resources-bar {
+		flex: 0 0 16em;
+		outline: 0.5px solid var(--color-outline);
+	}
+	
+	.gantt-time-table {
+		display: grid;
+		overflow-x: auto;
+		outline: 0.5px solid var(--color-outline);
+		position: relative;
+		width: 100%;
+		.gantt-time-table-period-cell-container {
+			grid-auto-columns: max-content;
+			overflow: hidden auto;
+			background: green;
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		}
+		// Month rows
+		.month-rows {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: minmax(24px, 1fr);
+			outline: none;
+			text-align: center;
+			align-content: center;
+			height: var(--cell-height);
+			border-left: 1px solid var(--color-outline);
+			border-bottom: 1px solid var(--color-outline);
+			>span {
+				display: flex;
+				line-height: 19px;
+				>.month-range {
+					width: 20px;
+					cursor: pointer;
+					.MuiSvgIcon-root {
+						width: 0.8em;
+						height: 0.8em;
+						margin-bottom: -4px;
+					}
+				}
+				>.month-range.prev {
+					margin-right: 15px;
+				}
+				>.month-range.next {
+					margin-left: 15px;
+				}
+			}
+		}
+		// Week rows
+		.week-rows {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: minmax(24px, 1fr);
+			outline: none;
+			text-align: center;
+			height: var(--cell-height);
+			border-bottom: 1px solid var(--color-outline);
+		}
+
+		.week-row {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: minmax(24px, 1fr);
+			outline: none;
+			text-align: center;
+			height: var(--cell-height);
+			>span {
+				margin: auto;
+				display: grid;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+				border-bottom: 1px solid var(--color-outline);
+				border-left: 1px solid var(--color-outline);
+				position: relative;
+				z-index: 3;
+			}
+		}
+		// Day rows
+		.day-rows {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: minmax(24px, 1fr);
+			outline: none;
+			text-align: center;
+			height: var(--cell-height);
+			border-bottom: 1px solid var(--color-outline);
+		}
+		.day-row {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: minmax(24px, 1fr);
+			outline: none;
+			text-align: center;
+			height: var(--cell-height);
+			>span {
+				margin: auto;
+				display: grid;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+				border-bottom: 1px solid var(--color-outline);
+				border-left: 1px solid var(--color-outline);
+				position: relative;
+				z-index: 3;
+			}
+		}
+		// Task rows
+		.task-rows {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: minmax(24px, 1fr);
+			text-align: center;
+			height: var(--cell-height3);
+			border-bottom: 1px solid var(--color-outline);
+		}
+
+		// box-row fix wrap
+		.box-row {
+			position: relative;
+			grid-auto-columns: minmax(14px, 1fr);
+			font-size: 0.5rem;
+		}
+		// TODO: Today line
+		//.today-line {
+		//	position: absolute;
+		//	top: 0px;
+		//	right: 0;
+		//	width: 100%;
+		//	height: 100%;
+		//	background: rgb(152 248 156 / 65%);
+		//	border-left: 1px dashed rgb(152 248 156 / 65%);
+		//	border-right: 1px dashed rgb(152 248 156 / 65%);
+		//	z-index: 2;
+		// }
+		// Period cell
+		.gantt-time-period-cell {
+			position: relative;
+			>span {
+				display: grid;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+				border-left: 1px solid var(--color-outline);
+			}
+		}
+		// end gantt-time-table
+	}
+}
