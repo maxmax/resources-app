@@ -8,8 +8,6 @@ export default function Gantt() {
 
   const { status, data, error } = getResources();
 
-  console.log('Gantt data', data);
-
   return (
     <PageLayout>
       <PageHeader title='Gantt Chart' />

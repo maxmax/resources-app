@@ -8,6 +8,7 @@ import {
   months
 } from "@/helpers/dateFunctions";
 import { ResourceProps } from '@/utils/api/resources';
+import TimeTableTasks from './TimeTableTasks';
 
 interface TimeRange {
   fromSelectDay: number;
@@ -144,7 +145,11 @@ const TimeTable: React.FC<Props> = ({ timeRange, resources, setPrevMonth, setNex
               data-date={formattedDate}
             >
               <span>
-                d
+                <TimeTableTasks 
+                  currentResource={resource}
+                  formattedDate={formattedDate}
+                  timeRange={timeRange}
+                />
               </span>
               {!!toDay && <div className="today-line"></div>}
             </div>
@@ -154,7 +159,7 @@ const TimeTable: React.FC<Props> = ({ timeRange, resources, setPrevMonth, setNex
         resourcesRows.push(
           <div
             key={`${i}-${resource?.id}`}
-            // style={{height: `${(resource?.tasks?.length) > 1 ? 22 * (resource?.tasks?.length) : 22}px`}}
+            style={{height: `${(resource?.tasks?.length) > 1 ? 22 * (resource?.tasks?.length) : 22}px`}}
             data-row-resource-tasks={resource?.tasks?.length}
             className={`task-rows box-row row-resource-${resource?.id}`}>
             {resourceRow}

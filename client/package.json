@@ -18,6 +18,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-query": "^3.39.3",
+    "react-rnd": "^10.4.1",
     "react-router-dom": "^6.21.2",
     "react-virtuoso": "^4.6.2"
   },

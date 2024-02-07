@@ -9,7 +9,7 @@ import TimeTable from '../TimeTable';
 const today = new Date();
 const timeRange = {
   fromSelectDay: 1,
-  fromSelectMonth: today.getMonth(),
+  fromSelectMonth: today.getMonth() - 1,
   fromSelectYear: today.getFullYear(),
   toSelectDay: new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate(),
   toSelectMonth: today.getMonth(),
@@ -20,7 +20,7 @@ interface GanttContainerProps {
   resources: ResourceProps[];
 }
 
-const GanttContainer: React.FC<GanttContainerProps> = ({ resources = [] }) => {
+const GanttContainer: React.FC<GanttContainerProps> = ({ resources }) => {
 
   return (
     <>

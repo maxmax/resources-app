@@ -10,5 +10,5 @@ export interface ResourceProps {
 	status: string;
 	published: boolean;
 	authorId: number;
-	tasks?: TaskProps[];
+	tasks: TaskProps[];
 }
