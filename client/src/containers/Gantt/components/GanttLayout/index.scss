@@ -153,6 +153,9 @@
 			font-size: 0.5rem;
 		}
 		// TODO: Today line
+		.today-line {
+			position: absolute;
+		}
 		//.today-line {
 		//	position: absolute;
 		//	top: 0px;
@@ -176,32 +179,38 @@
 			}
 		}
 		// end gantt-time-table
-	// Task
-	.task-duration {
-		position: absolute;
-		height: var(--cell-height3);
-		top: -1px;
-		z-index: 3;
-		cursor: "pointer";
-	}
-	
-	[data-task-index] {
-		height: var(--cell-height3);
-	}
-	
-	.task-duration .task-background {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		background: #ccc;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
-		border-radius: 1px;
-	}
-	.task-background {
-		background-color: #cccccc;
-	}
+		// Task
+		.task-duration {
+			position: absolute;
+			height: var(--cell-height3);
+			top: -1px;
+			z-index: 3;
+			cursor: "pointer";
+			.task-background {
+				position: relative;
+				width: 100%;
+				height: 100%;
+				background-color: #ccc;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+				border-radius: 1px;
+			}
+
+			&.in-progress .task-background {
+				background-color: rgba(97, 99, 240, 0.8);
+			}
+			&.completed .task-background {
+				background-color: rgba(145, 215, 101, 0.8);
+			}
+			&.canceled .task-background {
+				background-color: rgba(255, 120, 10, 0.8);
+			}
+		}
+		
+		[data-task-index] {
+			height: var(--cell-height3);
+		}
 	}
 }
