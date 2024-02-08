@@ -18,6 +18,7 @@
   --cell-height7: 110px;
   --cell-height8: 132px;
   padding: 0rem;
+	box-sizing: border-box;
 }
 
 .gantt-space-container {
@@ -30,6 +31,21 @@
 	.gantt-resources-bar {
 		flex: 0 0 16em;
 		outline: 0.5px solid var(--color-outline);
+		.gantt-resources-bar-head {
+			height: 48px;
+			border-bottom: 1px solid var(--border-color);
+		}
+		.gantt-resources-bar-list {
+			.gantt-resources-bar-list-head {
+				height: 24px;
+				border-bottom: 1px solid var(--border-color);
+			}
+			.MuiList-root {
+				.MuiListItem-root {
+					border-bottom: 1px solid var(--border-color);
+				}
+			}
+		}
 	}
 	
 	.gantt-time-table {
@@ -64,8 +80,8 @@
 					width: 20px;
 					cursor: pointer;
 					.MuiSvgIcon-root {
-						width: 0.8em;
-						height: 0.8em;
+						width: 0.6em;
+						height: 0.6em;
 						margin-bottom: -4px;
 					}
 				}

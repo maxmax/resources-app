@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ResourceProps } from '@/utils/api/resources';
 import GanttLayout from '../GanttLayout';
-import GanttBar from '../GanttBar';
 import ResourcesBar from '../ResourcesBar';
 import TimeTable from '../TimeTable';
 
@@ -25,9 +24,8 @@ const GanttContainer: React.FC<GanttContainerProps> = ({ resources }) => {
   return (
     <>
       <GanttLayout>
-        <GanttBar />
         <div className='gantt-space-container'>
-          <ResourcesBar />
+          <ResourcesBar resources={resources} />
           <TimeTable 
             timeRange={timeRange}
             resources={resources}

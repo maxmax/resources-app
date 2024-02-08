@@ -3,10 +3,10 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -34,13 +34,24 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
   const [startDate, setStartDate] = useState(dayjs(resizableDate.start || task.start));
   const [endDate, setEndDate] = useState(dayjs(resizableDate.end || task.end));
 	const [status, setStatus] = useState(task.status);
+  const [attributes, setAttributes] = useState({
+    title: task.title,
+    content: task.content,
+  });
 
   const handleClose = () => {
     setClose();
   };
 
-  const handleChangeStatus = (event: SelectChangeEvent) => {
-    setStatus(event.target.value as string);
+  const handleChangeStatus = (e: SelectChangeEvent) => {
+    setStatus(e.target.value as string);
+  };
+
+  const handleChangeAttributes = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAttributes({
+      ...attributes,
+      [e.target.name]: e.target.value
+    });
   };
 
   return (
@@ -57,12 +68,21 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
           {"Edit " + task.title}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {task.content}
-          </DialogContentText>
 					<Box sx={{ mt: 4, mb: 4 }}>
 						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="title"
+                    name="title"
+                    label="Title"
+                    variant="outlined"
+                    value={attributes.title}
+                    onChange={handleChangeAttributes}
+                  />
+                </Grid>
 								<Grid item xs={4}>
 									<DatePicker
 										label="Start"
@@ -94,6 +114,20 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
                       ))}
                     </Select>
                   </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    required
+                    id="content"
+                    name="content"
+                    label="Content"
+                    variant="outlined"
+                    multiline
+                    rows={4}
+                    value={attributes.content}
+                    onChange={handleChangeAttributes}
+                  />
                 </Grid>
 							</Grid>
 						</LocalizationProvider>

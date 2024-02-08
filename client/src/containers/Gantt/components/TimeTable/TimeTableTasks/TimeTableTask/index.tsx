@@ -87,7 +87,7 @@ const TimeTableTasks: React.FC<TimeTableTasksProps> = ({
     })
   }
 
-  const updatePeriod = (e) => {
+  const updatePeriod = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setOpenedPeriod(true);
   }
@@ -206,23 +206,12 @@ const TimeTableTasks: React.FC<TimeTableTasksProps> = ({
       </PopoverStyled>
       {openedPeriod &&
 				<>
-					edit
 					<TaskUpdateDialog 
 						open={openedPeriod}
 						setClose={changeOpenedPeriod}
 						task={task}
 						resizableDate={resizableDate}
 					/>
-					{/*<TaskUpdate
-						open={!!openedPeriod}
-						setOpen={changeOpenedPeriod}
-						task={openedPeriod}
-						resource={resource}
-						updateTask={updateTask}
-						deleteTask={deleteTask}
-						filterData={filterData}
-						resizableDate={resizableDate}
-					/>*/}
 				</>
       }
     </>

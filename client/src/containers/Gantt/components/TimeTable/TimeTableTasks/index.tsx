@@ -33,7 +33,6 @@ const TimeTableTasks: React.FC<TimeTableTasksProps> = ({
     }
 
     if (task.optStart === formattedDate || start === formattedDate) {
-      // return <span key={i}>x</span>;
 			return <TimeTableTask key={i} resource={currentResource} task={task} filterData={'test'} index={i} />;
     } else {
       return null;
