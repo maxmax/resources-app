@@ -1,16 +1,21 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   Typography,
   List,
   ListItem
 } from '@/components';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { ResourceProps } from '@/utils/api/resources';
+import NewResource from './NewResource';
 
 interface ResourcesBarProps {
   resources: ResourceProps[];
 }
 
 const ResourcesBar: React.FC<ResourcesBarProps> = ({ resources }) => {
+  const [resourceNewModalOpen, setResourceNewModalOpen] = useState<boolean>(false);
+
+  const addResource = () => setResourceNewModalOpen(!resourceNewModalOpen);
 
   return (
     <div className='gantt-resources-bar'>
@@ -19,6 +24,7 @@ const ResourcesBar: React.FC<ResourcesBarProps> = ({ resources }) => {
         <div className='gantt-resources-bar-list-head'>
           <Typography variant="caption" display="block" sx={{ px: 2, pt: 0.3 }}>
             Resources:
+            <div className="add-button" onClick={() => addResource()}><AddCircleIcon fontSize='small' /></div>
           </Typography>
         </div>
         <List sx={{ py: 0 }}>
@@ -37,6 +43,7 @@ const ResourcesBar: React.FC<ResourcesBarProps> = ({ resources }) => {
           ))} 
         </List>
       </div>
+      {resourceNewModalOpen && <NewResource open={resourceNewModalOpen} close={addResource} />}
     </div>
   );
 }

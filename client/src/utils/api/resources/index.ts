@@ -1,5 +1,6 @@
 import { getResources } from './getResources';
 import { getResource } from './getResource';
 import { ResourceProps } from './types';
-export { getResources, getResource };
+import { useСreateResource } from './createResource';
+export { getResources, getResource, useСreateResource };
 export type { ResourceProps };

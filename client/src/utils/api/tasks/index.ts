@@ -1,5 +1,12 @@
 import { getTasks } from './getTasks';
 import { getTask } from './getTask';
-import { TaskProps } from './types';
-export { getTasks, getTask };
-export type { TaskProps };
+import { useUpdateTask } from './updateTask';
+import { useDeleteTask } from './deleteTask';
+import { TaskProps, UpdateTaskProps } from './types';
+export { 
+	getTasks, 
+	getTask, 
+	useUpdateTask,
+	useDeleteTask,
+};
+export type { TaskProps, UpdateTaskProps };

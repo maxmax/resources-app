@@ -12,3 +12,12 @@ export interface ResourceProps {
 	authorId: number;
 	tasks: TaskProps[];
 }
+
+export interface CreateTaskProps {
+	title: string;
+	content?: string;
+	priority: number;
+	status: string;
+	published: boolean;
+	authorEmail: string;
+}

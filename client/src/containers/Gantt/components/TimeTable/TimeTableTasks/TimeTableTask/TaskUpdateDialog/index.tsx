@@ -16,8 +16,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { TaskProps } from '@/utils/api/tasks';
+import { useUpdateTask, useDeleteTask } from '@/utils/api/tasks';
 
-const statuses = ['In Progress', 'Complete', 'Canceled']
+const statuses = ['In Progress', 'Completed', 'Canceled']
 
 interface TaskUpdateDialogProps {
   open: boolean;
@@ -30,6 +31,9 @@ interface TaskUpdateDialogProps {
 }
 
 const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, resizableDate }) => {
+
+  const updateTask = useUpdateTask();
+  const deleteTask = useDeleteTask();
 
   const [startDate, setStartDate] = useState(dayjs(resizableDate.start || task.start));
   const [endDate, setEndDate] = useState(dayjs(resizableDate.end || task.end));
@@ -54,6 +58,30 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
     });
   };
 
+  const handleSubmit = async () => {
+    try {
+      const taskData = {
+        title: attributes.title,
+        content: attributes.content || '',
+        start: startDate.toDate().toISOString(),
+        end: endDate.toDate().toISOString(),
+        status: status,
+      }
+      await updateTask.mutateAsync({ taskId: task.id, taskData });
+    } catch (error) {
+      console.error('An error occurred while updating task:', error);
+    }
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      await deleteTask.mutateAsync(task.id);
+      setClose();
+    } catch (error) {
+      console.error('An error occurred while deleting task:', error);
+    }
+  };
+
   return (
     <React.Fragment>
       <Dialog
@@ -68,7 +96,7 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
           {"Edit " + task.title}
         </DialogTitle>
         <DialogContent>
-					<Box sx={{ mt: 4, mb: 4 }}>
+					<Box sx={{ mt: 2, mb: 0 }}>
 						<LocalizationProvider dateAdapter={AdapterDayjs}>
 							<Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -134,10 +162,17 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
 					</Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
+          <Grid container spacing={2} sx={{ px: 2, pb: 2 }}>
+            <Grid item xs={6}>
+              <Button onClick={handleClose} variant="outlined">Cancel</Button>
+              <Button onClick={handleSubmit} variant="outlined" color="success" sx={{ ml: 1 }} autoFocus>Submit</Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Box display="flex" justifyContent="flex-end">
+                <Button onClick={handleDeleteTask} variant="outlined" color="error">Delete</Button>
+              </Box>
+            </Grid>
+          </Grid>
         </DialogActions>
       </Dialog>
     </React.Fragment>

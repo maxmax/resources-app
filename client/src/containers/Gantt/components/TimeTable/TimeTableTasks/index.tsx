@@ -26,14 +26,23 @@ const TimeTableTasks: React.FC<TimeTableTasksProps> = ({
   const tasks = currentResource?.tasks?.map((task, i) => {
     const start = dayjs(task.start).format('YYYY-MM-DD');
     const end = dayjs(task.end).format('YYYY-MM-DD');
-    const optStart = `${timeRange.fromSelectYear}-${timeRange.fromSelectMonth + 1}-01`;
+    const optStart = dayjs(`${timeRange.fromSelectYear}-${timeRange.fromSelectMonth + 1}-01`).format('YYYY-MM-DD');
 
     if (end > formattedDate && start < optStart) {
       task.optStart = optStart;
     }
 
-    if (task.optStart === formattedDate || start === formattedDate) {
-			return <TimeTableTask key={i} resource={currentResource} task={task} filterData={'test'} index={i} />;
+    if (task.optStart === formattedDate) {
+			return <TimeTableTask 
+        key={i} 
+        task={task}
+        previewStart={task.optStart}
+        index={i} />;
+    } else if (start === formattedDate) {
+			return <TimeTableTask 
+        key={i} 
+        task={task}
+        index={i} />;
     } else {
       return null;
     }

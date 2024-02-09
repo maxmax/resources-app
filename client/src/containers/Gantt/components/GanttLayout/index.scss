@@ -39,6 +39,17 @@
 			.gantt-resources-bar-list-head {
 				height: 24px;
 				border-bottom: 1px solid var(--border-color);
+				position: relative;
+				.add-button {
+					position: absolute;
+					top: 3px;
+					right: 6px;
+					cursor: pointer;
+					.MuiSvgIcon-root {
+						font-size: 1.05rem;
+						color: #5d5d5d;
+					}
+				}
 			}
 			.MuiList-root {
 				.MuiListItem-root {

@@ -24,15 +24,21 @@ export const createTask = async (req: Request, res: Response): Promise<void> => 
   }
 };
 
-export const updateTaskStatus = async (req: Request, res: Response): Promise<void> => {
+export const updateTask = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  const { status } = req.body;
+  const { title, content, status, priority, start, end, resourceId, authorEmail } = req.body;
   try {
-    const task = await prisma.task.update({
+    const result = await prisma.task.update({
       where: { id: Number(id) },
-      data: { status },
+      data: {
+        title,
+        content,
+        status,
+        start,
+        end,
+      },
     });
-    res.json(task);
+    res.json(result);
   } catch (error) {
     res.status(404).json({ error: `Task with ID ${id} does not exist` });
   }

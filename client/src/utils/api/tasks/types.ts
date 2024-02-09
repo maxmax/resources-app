@@ -11,3 +11,11 @@ export interface TaskProps {
 	resourceId: number;
 	authorId: number;
 }
+
+export interface UpdateTaskProps {
+	title: string;
+	content: string;
+	start: string;
+	end: string;
+	status: string;
+}
