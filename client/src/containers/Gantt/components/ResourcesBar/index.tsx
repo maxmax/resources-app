@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import {
   Typography,
   List,
-  ListItem
+  ListItem,
 } from '@/components';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { ResourceProps } from '@/utils/api/resources';
 import NewResource from './NewResource';
+import EditResource from './EditResource';
 
 interface ResourcesBarProps {
   resources: ResourceProps[];
@@ -14,8 +16,19 @@ interface ResourcesBarProps {
 
 const ResourcesBar: React.FC<ResourcesBarProps> = ({ resources }) => {
   const [resourceNewModalOpen, setResourceNewModalOpen] = useState<boolean>(false);
+  const [resourceEditModalOpen, setResourceEditModalOpen] = useState<ResourceProps | null>(null);
 
   const addResource = () => setResourceNewModalOpen(!resourceNewModalOpen);
+
+  const editResource = (id: number) => {
+    console.log('ID', id);
+    const findResourceById = resources.find(resource => resource.id === id) || null;
+    setResourceEditModalOpen(findResourceById);
+  };
+
+  const closeResource = () => setResourceEditModalOpen(null);
+
+  console.log('resourceEditModalOpen', resourceEditModalOpen);
 
   return (
     <div className='gantt-resources-bar'>
@@ -39,11 +52,13 @@ const ResourcesBar: React.FC<ResourcesBarProps> = ({ resources }) => {
               <Typography variant="caption" display="block">
                 {resource.title}
               </Typography>
+              <div className="settings-button" onClick={() => editResource(resource.id)}><SettingsIcon fontSize='small' /></div>
             </ListItem>
           ))} 
         </List>
       </div>
       {resourceNewModalOpen && <NewResource open={resourceNewModalOpen} close={addResource} />}
+      {!!resourceEditModalOpen && <EditResource open={!!resourceEditModalOpen} resource={resourceEditModalOpen} close={closeResource} />}
     </div>
   );
 }

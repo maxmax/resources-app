@@ -21,3 +21,11 @@ export interface CreateTaskProps {
 	published: boolean;
 	authorEmail: string;
 }
+
+export interface UpdateTaskProps {
+	title: string;
+	content?: string;
+	priority: number;
+	status: string;
+	published: boolean;
+}

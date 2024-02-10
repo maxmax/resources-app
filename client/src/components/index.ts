@@ -11,6 +11,7 @@ import Grid from './Grid';
 import Typography from './Typography';
 import List from './List';
 import ListItem from './ListItem';
+import ListItemButton from './ListItemButton';
 import TextField from './TextField';
 export {  
 	AppLayout,
@@ -26,5 +27,6 @@ export {
 	Typography,
 	List,
 	ListItem,
+	ListItemButton,
 	TextField
 }

@@ -22,13 +22,19 @@ export const createResource = async (req: Request, res: Response): Promise<void>
   }
 };
 
-export const updateResourceStatus = async (req: Request, res: Response): Promise<void> => {
+export const updateResource = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  const { status } = req.body;
+  const { title, content, priority, status, published } = req.body;
   try {
     const resource = await prisma.resource.update({
       where: { id: Number(id) },
-      data: { status },
+      data: {
+        title,
+        content,
+        priority,
+        status,
+        published,
+      },
     });
     res.json(resource);
   } catch (error) {

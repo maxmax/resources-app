@@ -7,14 +7,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import FormControl from '@mui/material/FormControl';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { useСreateResource } from '@/utils/api/resources';
+import { useUpdateResource } from '@/utils/api/resources';
+import { ResourceProps } from '@/utils/api/resources';
 
-interface NewResourceProps {
+interface EditResourceProps {
   open: boolean;
   close: (open: boolean) => void;
+  resource: ResourceProps;
 }
 
 interface FormData {
@@ -25,11 +26,19 @@ interface FormData {
   published: boolean;
 }
 
-const NewResource: FC<NewResourceProps> = ({ open, close }) => {
+const EditResource: FC<EditResourceProps> = ({ open, close, resource }) => {
 
-  const createResource = useСreateResource();
+  const updateResource = useUpdateResource();
 
-  const { handleSubmit, control, formState: { errors } } = useForm<FormData>();
+  const { handleSubmit, control, formState: { errors } } = useForm<FormData>({
+    defaultValues: {
+      title: resource.title || '',
+      content: resource.content || '',
+      priority: resource.priority || 1,
+      status: resource.status || '',
+      published: resource.published || false,
+    }
+  });
 
   const handleClose = () => {
     close(false);
@@ -37,13 +46,13 @@ const NewResource: FC<NewResourceProps> = ({ open, close }) => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      await createResource.mutateAsync({
+      const resourceData = {
         ...data,
-        priority: Number(data.priority),
         authorEmail: "loki@example.com"
-      });
+      }
+      await updateResource.mutateAsync({ resourceId: resource.id, resourceData });
     } catch (error) {
-      console.error('An error occurred while create resource:', error);
+      console.error('An error occurred while edit resource:', error);
     }
   };
 
@@ -58,7 +67,7 @@ const NewResource: FC<NewResourceProps> = ({ open, close }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"New Resource"}
+          {"Edit Resource"}
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent>
@@ -114,21 +123,19 @@ const NewResource: FC<NewResourceProps> = ({ open, close }) => {
                 />
               </Grid>
               <Grid item xs={10}>
-                <FormControl fullWidth>
-                  <Controller
-                    name="status"
-                    control={control}
-                    defaultValue=""
-                    render={({ field }) => (
-                      <TextField
-                        {...field}
-                        label="Status"
-                        variant="outlined"
-                        fullWidth
-                      />
-                    )}
-                  />
-                </FormControl>
+                <Controller
+                  name="status"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="status"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  )}
+                />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -153,7 +160,7 @@ const NewResource: FC<NewResourceProps> = ({ open, close }) => {
           <DialogActions sx={{ px: 3, pb: 4 }}>
             <Button onClick={handleClose} variant="outlined">Cancel</Button>
             <Button type="submit" variant="outlined" color="success" sx={{ ml: 1 }}>
-              Create
+              Update
             </Button>
           </DialogActions>
         </form>
@@ -162,4 +169,4 @@ const NewResource: FC<NewResourceProps> = ({ open, close }) => {
   );
 };
 
-export default NewResource;
+export default EditResource;

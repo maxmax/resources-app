@@ -54,6 +54,22 @@
 			.MuiList-root {
 				.MuiListItem-root {
 					border-bottom: 1px solid var(--border-color);
+					position: relative;
+					.settings-button {
+						position: absolute;
+						top: 50%;
+						transform: translate(0, -50%);
+						right: 6px;
+						cursor: pointer;
+						opacity: 0;
+						.MuiSvgIcon-root {
+							font-size: 0.8rem;
+							color: #5d5d5d;
+						}
+					}
+					&:hover .settings-button {
+						opacity: 1;
+					}
 				}
 			}
 		}
