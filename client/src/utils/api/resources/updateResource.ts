@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { UpdateTaskProps } from './types';
+import { UpdateResourceProps } from './types';
 
 const API_URL = import.meta.env.VITE_REST_SERVER_API_URL;
 
-export const updateResource = async (data: { resourceId: number; resourceData: UpdateTaskProps }) => {
+export const updateResource = async (data: { resourceId: number; resourceData: UpdateResourceProps }) => {
   const { resourceId, resourceData } = data;
 
   console.log('resource-resourceId', resourceId);

@@ -19,3 +19,14 @@ export interface UpdateTaskProps {
 	end: string;
 	status: string;
 }
+
+export interface CreateTaskProps {
+	title: string;
+	content?: string;
+	start: string;
+	end: string;
+	status: string;
+	priority: number;
+	resourceId: number;
+	authorEmail: string;
+}

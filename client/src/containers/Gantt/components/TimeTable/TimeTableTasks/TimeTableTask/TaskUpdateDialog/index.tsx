@@ -18,7 +18,7 @@ import dayjs from 'dayjs';
 import { TaskProps } from '@/utils/api/tasks';
 import { useUpdateTask, useDeleteTask } from '@/utils/api/tasks';
 
-const statuses = ['In Progress', 'Completed', 'Canceled']
+const statuses = ['In Progress', 'Completed', 'Canceled', 'Booked']
 
 interface TaskUpdateDialogProps {
   open: boolean;

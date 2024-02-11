@@ -245,9 +245,12 @@
 				background-color: rgba(97, 99, 240, 0.8);
 			}
 			&.completed .task-background {
-				background-color: rgba(145, 215, 101, 0.8);
+				background-color: rgba(60, 177, 14, 0.8);
 			}
 			&.canceled .task-background {
+				background-color: rgba(255, 43, 10, 0.8);
+			}
+			&.booked .task-background {
 				background-color: rgba(255, 120, 10, 0.8);
 			}
 		}

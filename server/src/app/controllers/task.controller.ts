@@ -26,7 +26,7 @@ export const createTask = async (req: Request, res: Response): Promise<void> => 
 
 export const updateTask = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
-  const { title, content, status, priority, start, end, resourceId, authorEmail } = req.body;
+  const { title, content, status, start, end } = req.body;
   try {
     const result = await prisma.task.update({
       where: { id: Number(id) },

@@ -13,7 +13,7 @@ export interface ResourceProps {
 	tasks: TaskProps[];
 }
 
-export interface CreateTaskProps {
+export interface CreateResourceProps {
 	title: string;
 	content?: string;
 	priority: number;
@@ -22,7 +22,7 @@ export interface CreateTaskProps {
 	authorEmail: string;
 }
 
-export interface UpdateTaskProps {
+export interface UpdateResourceProps {
 	title: string;
 	content?: string;
 	priority: number;

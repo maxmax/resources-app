@@ -13,6 +13,7 @@
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "^5.15.9",
+    "@mui/lab": "^5.0.0-alpha.165",
     "@mui/material": "latest",
     "@mui/x-date-pickers": "^6.19.3",
     "dayjs": "^1.11.10",
