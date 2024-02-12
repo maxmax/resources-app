@@ -1,15 +1,17 @@
 import React, { FC } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import FormControl from '@mui/material/FormControl';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Grid,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+} from '@/components';
 import { useСreateResource } from '@/utils/api/resources';
 
 interface NewResourceProps {
