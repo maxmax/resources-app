@@ -43,6 +43,7 @@ const EditResourceForm: FC<EditResourceFormProps> = ({ resource, close }) => {
     try {
       const resourceData = {
         ...data,
+				priority: Number(data.priority),
         authorEmail: "loki@example.com"
       }
       await updateResource.mutateAsync({ resourceId: resource.id, resourceData });
@@ -67,7 +68,6 @@ const EditResourceForm: FC<EditResourceFormProps> = ({ resource, close }) => {
 					<Controller
 						name="title"
 						control={controlResourceForm}
-						defaultValue=""
 						rules={{ required: true }}
 						render={({ field }) => (
 							<TextField
@@ -86,7 +86,6 @@ const EditResourceForm: FC<EditResourceFormProps> = ({ resource, close }) => {
 					<Controller
 						name="content"
 						control={controlResourceForm}
-						defaultValue=""
 						render={({ field }) => (
 							<TextField
 								{...field}
@@ -101,7 +100,6 @@ const EditResourceForm: FC<EditResourceFormProps> = ({ resource, close }) => {
 					<Controller
 						name="priority"
 						control={controlResourceForm}
-						defaultValue={1}
 						render={({ field }) => (
 							<TextField
 								{...field}
@@ -117,7 +115,6 @@ const EditResourceForm: FC<EditResourceFormProps> = ({ resource, close }) => {
 					<Controller
 						name="status"
 						control={controlResourceForm}
-						defaultValue=""
 						render={({ field }) => (
 							<TextField
 								{...field}
@@ -134,11 +131,11 @@ const EditResourceForm: FC<EditResourceFormProps> = ({ resource, close }) => {
 							<Controller
 								name="published"
 								control={controlResourceForm}
-								defaultValue={false}
 								render={({ field }) => (
 									<Checkbox
 										{...field}
 										color="primary"
+										checked={field.value}
 									/>
 								)}
 							/>

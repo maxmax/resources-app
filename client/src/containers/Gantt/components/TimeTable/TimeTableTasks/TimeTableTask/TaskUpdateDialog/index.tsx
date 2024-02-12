@@ -25,7 +25,7 @@ interface TaskUpdateDialogProps {
   open: boolean;
   setClose: () => void;
 	task: TaskProps;
-	resizableDate: {
+	resizableDate?: {
 		start: string;
 		end: string;
 	}
@@ -36,8 +36,8 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
   const updateTask = useUpdateTask();
   const deleteTask = useDeleteTask();
 
-  const [startDate, setStartDate] = useState(dayjs(resizableDate.start || task.start));
-  const [endDate, setEndDate] = useState(dayjs(resizableDate.end || task.end));
+  const [startDate, setStartDate] = useState(dayjs(resizableDate?.start || task.start));
+  const [endDate, setEndDate] = useState(dayjs(resizableDate?.end || task.end));
 	const [status, setStatus] = useState(task.status);
   const [attributes, setAttributes] = useState({
     title: task.title,
