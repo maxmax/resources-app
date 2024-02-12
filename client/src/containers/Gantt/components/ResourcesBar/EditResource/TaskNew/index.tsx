@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { Button, TextField, Grid, MenuItem, FormControl, InputLabel, Select } from '@mui/material';
-// import DatePicker from '@mui/lab/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {
+	Button, 
+	TextField, 
+	Grid, 
+	MenuItem, 
+	FormControl, 
+	InputLabel, 
+	Select,
+	LocalizationProvider,
+	DatePicker,
+} from '@/components';
 import dayjs from 'dayjs';
 import { ResourceProps } from '@/utils/api/resources';
 import { useСreateTask } from '@/utils/api/tasks';
@@ -20,9 +26,10 @@ interface FormInput {
 
 interface TaskNewProps {
   resource: ResourceProps;
+	close: (open: boolean) => void;
 }
 
-const TaskNew: React.FC<TaskNewProps> = ({ resource }) => {
+const TaskNew: React.FC<TaskNewProps> = ({ resource, close }) => {
 
 	const createTask = useСreateTask();
 
@@ -50,7 +57,7 @@ const TaskNew: React.FC<TaskNewProps> = ({ resource }) => {
 
   return (
     <form onSubmit={handleSubmitForm(onSubmitForm)}>
-			<LocalizationProvider dateAdapter={AdapterDayjs}>
+			<LocalizationProvider>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<Controller
@@ -67,7 +74,7 @@ const TaskNew: React.FC<TaskNewProps> = ({ resource }) => {
 							label="Start"
 							format="DD-MM-YYYY"
 							value={startDate}
-							onChange={(newValue) => newValue && setStartDate(newValue)}
+							onChange={(newValue) => newValue && setStartDate(dayjs(newValue))}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -75,7 +82,7 @@ const TaskNew: React.FC<TaskNewProps> = ({ resource }) => {
 							label="End"
 							format="DD-MM-YYYY"
 							value={endDate}
-							onChange={(newValue) => newValue && setEndDate(newValue)}
+							onChange={(newValue) => newValue && setEndDate(dayjs(newValue))}
 						/>
 					</Grid>
 					<Grid item xs={4}>
@@ -123,8 +130,11 @@ const TaskNew: React.FC<TaskNewProps> = ({ resource }) => {
 						/>
 					</Grid>
 					<Grid item xs={12} sx={{ mt: 3 }}>
-						<Button type="submit" variant="outlined" color="success">
+						<Button type="submit" variant="outlined" color="success" sx={{ mr: 1 }}>
 							Submit
+						</Button>
+						<Button onClick={() => close(false)} variant="outlined">
+							Close
 						</Button>
 					</Grid>
 				</Grid>

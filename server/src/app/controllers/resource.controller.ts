@@ -59,6 +59,9 @@ export const getResourceById = async (req: Request, res: Response): Promise<void
   try {
     const resource = await prisma.resource.findUnique({
       where: { id: Number(id) },
+      include: {
+        tasks: true,
+      },
     });
     res.json(resource);
   } catch (error) {

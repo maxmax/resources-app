@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import {
+  Box,
+	Button,
+	TextField,
+	Grid,
+	Checkbox,
+	FormControlLabel,
+} from '@/components';
 import { useUpdateResource, useDeleteResource } from '@/utils/api/resources';
 import { ResourceProps } from '@/utils/api/resources';
 
@@ -147,8 +149,11 @@ const EditResourceForm: FC<EditResourceFormProps> = ({ resource, close }) => {
 			</Grid>
 			<Grid container spacing={2} sx={{ mt: 3 }}>
 				<Grid item xs={6}>
-					<Button type="submit" variant="outlined" color="success">
+					<Button type="submit" variant="outlined" color="success" sx={{ mr: 1 }}>
 						Submit
+					</Button>
+					<Button onClick={() => close(false)} variant="outlined">
+						Close
 					</Button>
 				</Grid>
 				<Grid item xs={6}>

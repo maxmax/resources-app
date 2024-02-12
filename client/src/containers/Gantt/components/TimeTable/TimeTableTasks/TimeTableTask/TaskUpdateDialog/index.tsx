@@ -1,19 +1,20 @@
 import React, { FC, useState } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {
+	Button, 
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Grid,
+  Box,
+  TextField,
+  FormControl,
+  InputLabel,
+  MenuItem,
+	LocalizationProvider,
+	DatePicker,
+  DialogTitle,
+} from '@/components';
+import Select, { SelectChangeEvent } from '@/components/Select';
 import dayjs from 'dayjs';
 import { TaskProps } from '@/utils/api/tasks';
 import { useUpdateTask, useDeleteTask } from '@/utils/api/tasks';
@@ -47,7 +48,7 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
     setClose();
   };
 
-  const handleChangeStatus = (e: SelectChangeEvent) => {
+  const handleChangeStatus = (e: SelectChangeEvent<unknown>) => {
     setStatus(e.target.value as string);
   };
 
@@ -97,7 +98,7 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
         </DialogTitle>
         <DialogContent>
 					<Box sx={{ mt: 2, mb: 0 }}>
-						<LocalizationProvider dateAdapter={AdapterDayjs}>
+						<LocalizationProvider>
 							<Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -116,7 +117,7 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
 										label="Start"
 										format="DD-MM-YYYY"
 										value={startDate}
-										onChange={(newValue) => newValue && setStartDate(newValue)}
+										onChange={(newValue) => newValue && setStartDate(dayjs(newValue))}
 									/>
 								</Grid>
 								<Grid item xs={4}>
@@ -124,7 +125,7 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
 										label="End"
 										format="DD-MM-YYYY"
 										value={endDate}
-										onChange={(newValue) => newValue && setEndDate(newValue)}
+										onChange={(newValue) => newValue && setEndDate(dayjs(newValue))}
 									/>
 								</Grid>
                 <Grid item xs={4}>  
@@ -164,8 +165,8 @@ const TaskUpdateDialog: FC<TaskUpdateDialogProps> = ({ open, setClose, task, res
         <DialogActions>
           <Grid container spacing={2} sx={{ px: 2, pb: 2 }}>
             <Grid item xs={6}>
-              <Button onClick={handleClose} variant="outlined">Cancel</Button>
-              <Button onClick={handleSubmit} variant="outlined" color="success" sx={{ ml: 1 }} autoFocus>Submit</Button>
+              <Button onClick={handleSubmit} variant="outlined" color="success" autoFocus>Submit</Button>
+              <Button onClick={handleClose} variant="outlined" sx={{ ml: 1 }}>Cancel</Button>
             </Grid>
             <Grid item xs={6}>
               <Box display="flex" justifyContent="flex-end">

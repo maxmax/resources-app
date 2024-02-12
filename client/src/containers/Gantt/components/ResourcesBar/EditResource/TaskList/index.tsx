@@ -1,20 +1,30 @@
 import React, { FC } from 'react';
 import dayjs from 'dayjs';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import { TaskProps } from '@/utils/api/tasks';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Grid,
+  LinearLoading,
+} from '@/components';
+import { getResource } from '@/utils/api/resources';
 
 interface TaskListProps {
-  tasks: TaskProps[];
+  resourceId: number;
+  close: (open: boolean) => void;
 }
 
-const TaskList: FC<TaskListProps> = ({ tasks }) => {
+const TaskList: FC<TaskListProps> = ({ resourceId, close }) => {
+
+  const { status, data, error } = getResource(Number(resourceId));
 
   return (
     <React.Fragment>
+      {status === 'loading' && (<LinearLoading />)}
+      {error instanceof Error && (<span>Error: {error.message}</span>)}
       <Table size="small" sx={{ border: 1, borderColor: 'grey.300', mb: 2 }}>
         <TableHead>
           <TableRow>
@@ -26,7 +36,7 @@ const TaskList: FC<TaskListProps> = ({ tasks }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tasks.map((row, index) => (
+          {data?.tasks.map((row, index) => (
             <TableRow
               key={row.id}
             >
@@ -39,6 +49,13 @@ const TaskList: FC<TaskListProps> = ({ tasks }) => {
           ))}
         </TableBody>
       </Table>
+			<Grid container spacing={2} sx={{ mt: 3 }}>
+				<Grid item xs={12}>
+					<Button onClick={() => close(false)} variant="outlined">
+						Close
+					</Button>
+				</Grid>
+			</Grid>
     </React.Fragment>
   );
 };

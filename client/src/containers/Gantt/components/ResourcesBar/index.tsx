@@ -21,14 +21,11 @@ const ResourcesBar: React.FC<ResourcesBarProps> = ({ resources }) => {
   const addResource = () => setResourceNewModalOpen(!resourceNewModalOpen);
 
   const editResource = (id: number) => {
-    console.log('ID', id);
     const findResourceById = resources.find(resource => resource.id === id) || null;
     setResourceEditModalOpen(findResourceById);
   };
 
   const closeResource = () => setResourceEditModalOpen(null);
-
-  console.log('resourceEditModalOpen', resourceEditModalOpen);
 
   return (
     <div className='gantt-resources-bar'>

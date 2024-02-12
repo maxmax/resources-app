@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
-import Dialog from '@mui/material/Dialog';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import {
+  Dialog,
+  Box,
+  Tab,
+  TabContext,
+  TabList,
+  TabPanel,
+} from '@/components';
 import { ResourceProps } from '@/utils/api/resources';
 import EditResourceForm from './EditResourceForm';
 import TaskList from './TaskList';
@@ -29,7 +31,7 @@ const EditResource: FC<EditResourceProps> = ({ open, close, resource }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Dialog
         fullWidth={true}
         maxWidth={'sm'}
@@ -50,12 +52,12 @@ const EditResource: FC<EditResourceProps> = ({ open, close, resource }) => {
             <EditResourceForm resource={resource} close={close} />
           </TabPanel>
           <TabPanel value="2">
-            <TaskList tasks={resource.tasks} />
+            <TaskList resourceId={resource.id} close={close} />
           </TabPanel>
-          <TabPanel value="3"><TaskNew resource={resource} /></TabPanel>
+          <TabPanel value="3"><TaskNew resource={resource} close={close} /></TabPanel>
         </TabContext>
       </Dialog>
-    </React.Fragment>
+    </>
   );
 };
 
