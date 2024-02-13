@@ -104,3 +104,43 @@ export const getAllResources = async (req: Request, res: Response): Promise<void
     res.status(500).json({ error: 'Failed to fetch resources' });
   }
 };
+
+export const getResourcesByTaskDateRange = async (req: Request, res: Response): Promise<void> => {
+  const { start, end } = req.query;
+
+  try {
+    // Find all tasks falling within the date interval
+    const tasks = await prisma.task.findMany({
+      where: {
+        AND: [
+          { start: { gte: new Date(start as string) } },
+          { end: { lte: new Date(end as string) } },
+        ],
+      },
+    });
+
+    // Get unique IDs of resources that have tasks that fall within the date range
+    const resourceIds = tasks.map(task => task.resourceId);
+
+    // Get resources associated with the found identifiers, whose tasks also fall within the date range
+    const resources = await prisma.resource.findMany({
+      where: {
+        id: { in: resourceIds }, // Filter resources by found identifiers
+      },
+      include: {
+        tasks: {
+          where: {
+            AND: [
+              { start: { gte: new Date(start as string) } },
+              { end: { lte: new Date(end as string) } },
+            ],
+          },
+        },
+      },
+    });
+
+    res.json(resources);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch resources by task date range' });
+  }
+};
