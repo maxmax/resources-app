@@ -144,3 +144,31 @@ export const getResourcesByTaskDateRange = async (req: Request, res: Response): 
     res.status(500).json({ error: 'Failed to fetch resources by task date range' });
   }
 };
+
+export const getResourcesByTaskStatus = async (req: Request, res: Response): Promise<void> => {
+  const { status } = req.query;
+
+  try {
+    // Find all resources that have tasks with the specified status
+    const resources = await prisma.resource.findMany({
+      where: {
+        tasks: {
+          some: {
+            status: String(status),
+          },
+        },
+      },
+      include: {
+        tasks: {
+          where: {
+            status: String(status),
+          },
+        },
+      },
+    });
+
+    res.json(resources);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch resources by task status' });
+  }
+};
