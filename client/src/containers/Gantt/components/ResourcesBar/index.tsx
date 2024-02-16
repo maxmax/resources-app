@@ -9,6 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { ResourceProps } from '@/utils/api/resources';
 import NewResource from './NewResource';
 import EditResource from './EditResource';
+import SelectDateContainer from './SelectDateContainer';
 
 interface ResourcesBarProps {
   resources: ResourceProps[];
@@ -29,7 +30,9 @@ const ResourcesBar: React.FC<ResourcesBarProps> = ({ resources }) => {
 
   return (
     <div className='gantt-resources-bar'>
-      <div className='gantt-resources-bar-head'></div>
+      <div className='gantt-resources-bar-head'>
+        <SelectDateContainer />
+      </div>
       <div className='gantt-resources-bar-list'>
         <div className='gantt-resources-bar-list-head'>
           <Typography variant="caption" display="block" sx={{ px: 2, pt: 0.3 }}>

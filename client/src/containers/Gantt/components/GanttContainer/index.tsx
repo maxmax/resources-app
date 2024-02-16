@@ -1,25 +1,16 @@
 import * as React from 'react';
 import { ResourceProps } from '@/utils/api/resources';
+import { TimeRangeProps } from '@/utils/api/time-range';
 import GanttLayout from '../GanttLayout';
 import ResourcesBar from '../ResourcesBar';
 import TimeTable from '../TimeTable';
 
-// TODO: to user settings
-const today = new Date();
-const timeRange = {
-  fromSelectDay: 1,
-  fromSelectMonth: today.getMonth(),
-  fromSelectYear: today.getFullYear(),
-  toSelectDay: new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate(),
-  toSelectMonth: today.getMonth(),
-  toSelectYear: today.getFullYear(),
-}
-
 interface GanttContainerProps {
   resources: ResourceProps[];
+  timeRange: TimeRangeProps;
 }
 
-const GanttContainer: React.FC<GanttContainerProps> = ({ resources }) => {
+const GanttContainer: React.FC<GanttContainerProps> = ({ resources, timeRange }) => {
 
   return (
     <>

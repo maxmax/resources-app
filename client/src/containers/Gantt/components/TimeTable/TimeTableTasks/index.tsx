@@ -13,8 +13,7 @@ interface TimeTableTasksProps {
   };
   formattedDate: string;
   timeRange: {
-    fromSelectYear: number;
-    fromSelectMonth: number;
+    fromDate: Date;
   };
 }
 
@@ -26,7 +25,7 @@ const TimeTableTasks: React.FC<TimeTableTasksProps> = ({
   const tasks = currentResource?.tasks?.map((task, i) => {
     const start = dayjs(task.start).format('YYYY-MM-DD');
     const end = dayjs(task.end).format('YYYY-MM-DD');
-    const optStart = dayjs(`${timeRange.fromSelectYear}-${timeRange.fromSelectMonth + 1}-01`).format('YYYY-MM-DD');
+    const optStart = dayjs(`${timeRange.fromDate.getFullYear()}-${timeRange.fromDate.getMonth() + 1}-01`).format('YYYY-MM-DD');
 
     if (end > formattedDate && start < optStart) {
       task.optStart = optStart;

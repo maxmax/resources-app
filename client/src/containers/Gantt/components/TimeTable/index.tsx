@@ -9,19 +9,11 @@ import {
   months
 } from "@/helpers/dateFunctions";
 import { ResourceProps } from '@/utils/api/resources';
+import { TimeRangeProps } from '@/utils/api/time-range';
 import TimeTableTasks from './TimeTableTasks';
 
-interface TimeRange {
-  fromSelectDay: number;
-  fromSelectYear: number;
-  fromSelectMonth: number;
-  toSelectDay: number;
-  toSelectYear: number;
-  toSelectMonth: number;
-}
-
 interface TimeTableProps {
-  timeRange: TimeRange;
+  timeRange: TimeRangeProps;
   resources: ResourceProps[];
   setPrevMonth: (e: React.MouseEvent<HTMLSpanElement>, numMonths: number, index: number) => void;
   setNextMonth: (e: React.MouseEvent<HTMLSpanElement>, numMonths: number, index: number) => void;
@@ -33,8 +25,8 @@ const TimeTable: React.FC<TimeTableProps> = ({ timeRange, resources, setPrevMont
   };
 
   // rows
-  const startMonth = new Date(timeRange.fromSelectYear, timeRange.fromSelectMonth);
-  const endMonth = new Date(timeRange.toSelectYear, timeRange.toSelectMonth);
+  const startMonth = new Date(timeRange.fromDate.getFullYear(), timeRange.fromDate.getMonth());
+  const endMonth = new Date(timeRange.toDate.getFullYear(), timeRange.toDate.getMonth());
   const numMonths = monthDiff(startMonth, endMonth) + 1;
   const month = new Date(startMonth);
 
@@ -137,7 +129,7 @@ const TimeTable: React.FC<TimeTableProps> = ({ timeRange, resources, setPrevMont
 
           const formattedDate = createFormattedDateFromStr(curYear, curMonth, j);
 
-          const toDay = getToDay(curYear, curMonth - 1, j)
+          const toDay = getToDay(curYear, curMonth - 1, j);
 
           resourceRow.push(
             <div

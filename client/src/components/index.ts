@@ -19,6 +19,7 @@ import TabList from './TabList';
 import TabPanel from './TabPanel';
 import Dialog from './Dialog';
 import Button from './Button';
+import IconButton from './IconButton';
 import Checkbox from './Checkbox';
 import FormControlLabel from './FormControlLabel';
 import Table from './Table';
@@ -59,6 +60,7 @@ export {
 	DialogActions,
 	DialogContent,
 	Button,
+	IconButton,
 	Checkbox,
 	FormControlLabel,
 	Table,
