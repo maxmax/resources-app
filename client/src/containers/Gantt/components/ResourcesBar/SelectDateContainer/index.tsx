@@ -24,8 +24,11 @@ const SelectDateContainer: React.FC<SelectDateContainerProps> = () => {
 	const { data: timeRangeData } = getTimeRange();
 	const { mutate: updateTimeRange } = setTimeRange();
 
-	const dateReplay = () => {
-		console.log('dateReplay!!!');
+	const dateReplay = async () => {
+		updateTimeRange({
+			date: new Date(),
+			key: 'reset',
+		});
 	};
 
   const openDateCalendar = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>, date: Date, key: string) => {
@@ -45,7 +48,7 @@ const SelectDateContainer: React.FC<SelectDateContainerProps> = () => {
 
 	const updateDate = async () => {
 		if (selectedDate && selectedDateKey) {
-			await updateTimeRange({
+			updateTimeRange({
 				date: selectedDate,
 				key: selectedDateKey,
 			});

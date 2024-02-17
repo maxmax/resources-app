@@ -21,6 +21,11 @@ const setDefaultTimeRange = async (newData: { date: Date; key: string }, queryCl
       ...timeRangeData,
       toDate: date,
     };
+  } else if (key === 'reset') {
+    newDataToUpdate = {
+      fromDate: date,
+      toDate: new Date(date.getFullYear(), date.getMonth() + 1, 0),
+    };
   }
 
   queryClient.setQueryData('timeRange', newDataToUpdate);
@@ -30,8 +35,9 @@ export const setTimeRange = () => {
   const queryClient = useQueryClient();
   return useMutation((newData: { date: Date; key: string }) => setDefaultTimeRange(newData, queryClient), {
     onSuccess: () => {
-      queryClient.invalidateQueries('resources');
-      queryClient.invalidateQueries('tasks');
+      // queryClient.invalidateQueries(['resources', timeRangeData.fromDate, timeRangeData.toDate]);
+      // queryClient.invalidateQueries('resources');
+      // queryClient.invalidateQueries('resourcesFilter');
     },
   });
 };
