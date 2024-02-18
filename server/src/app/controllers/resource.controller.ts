@@ -109,33 +109,45 @@ export const getResourcesByTaskDateRange = async (req: Request, res: Response): 
   const { start, end } = req.query;
 
   try {
-    // Find all tasks falling within the date interval
+    // Find all tasks whose dates intersect with the selected period
     const tasks = await prisma.task.findMany({
       where: {
-        AND: [
-          { start: { gte: new Date(start as string) } },
-          { end: { lte: new Date(end as string) } },
+        OR: [
+          // The start of the task falls within the selected period
+          {
+            AND: [
+              { start: { lte: new Date(end as string) } }, // Start until the end of the period
+              { start: { gte: new Date(start as string) } }, // Start after the start of the period
+            ],
+          },
+          // The end of the task falls within the selected period
+          {
+            AND: [
+              { end: { lte: new Date(end as string) } }, // End to end of period
+              { end: { gte: new Date(start as string) } }, // End after the start of the period
+            ],
+          },
+          // The task is entirely within the selected period
+          {
+            AND: [
+              { start: { lte: new Date(start as string) } }, // Start before the start of the period
+              { end: { gte: new Date(end as string) } }, // End after the end of the period
+            ],
+          },
         ],
       },
     });
 
-    // Get unique IDs of resources that have tasks that fall within the date range
-    const resourceIds = tasks.map(task => task.resourceId);
+    // Get unique resource identifiers associated with the found tasks
+    const resourceIds = Array.from(new Set(tasks.map(task => task.resourceId)));
 
-    // Get resources associated with the found identifiers, whose tasks also fall within the date range
+    // Get resources associated with the found identifiers
     const resources = await prisma.resource.findMany({
       where: {
-        id: { in: resourceIds }, // Filter resources by found identifiers
+        id: { in: resourceIds }, // Filter resources to get only those that are related to the found tasks
       },
       include: {
-        tasks: {
-          where: {
-            AND: [
-              { start: { gte: new Date(start as string) } },
-              { end: { lte: new Date(end as string) } },
-            ],
-          },
-        },
+        tasks: true, // Enable tasks for each resource
       },
     });
 
