@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 import {
   monthDiff,
   getDaysInMonth,
@@ -15,11 +14,10 @@ import TimeTableTasks from './TimeTableTasks';
 interface TimeTableProps {
   timeRange: TimeRangeProps;
   resources: ResourceProps[];
-  setPrevMonth: (e: React.MouseEvent<HTMLSpanElement>, numMonths: number, index: number) => void;
-  setNextMonth: (e: React.MouseEvent<HTMLSpanElement>, numMonths: number, index: number) => void;
 }
 
-const TimeTable: React.FC<TimeTableProps> = ({ timeRange, resources, setPrevMonth, setNextMonth }) => {
+const TimeTable: React.FC<TimeTableProps> = ({ timeRange, resources }) => {
+
   const ganttTimePeriodSpan: React.CSSProperties = {
     margin: "auto",
   };
@@ -44,13 +42,7 @@ const TimeTable: React.FC<TimeTableProps> = ({ timeRange, resources, setPrevMont
     monthRows.push(
       <div key={i} style={{outline: "none" }} className="month-rows box-row" data-type={month.getMonth()}>
         <span style={ganttTimePeriodSpan}>
-          <span className="month-range prev" data-month={month.getMonth()} data-year={month.getFullYear()} onClick={(e) => setPrevMonth(e, numMonths, i)}>
-            <NavigateBefore />
-          </span>
           {months[month.getMonth()] + " - " + month.getFullYear()}
-          <span className="month-range next" data-month={month.getMonth()} data-year={month.getFullYear()} onClick={(e) => setNextMonth(e, numMonths, i)}>
-            <NavigateNext />
-          </span>
         </span>
       </div>
     );

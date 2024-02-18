@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { TimeRangeProps } from './types';
+import { getResourcesByFilterRequest } from '@/utils/api/resources';
 
 const setDefaultTimeRange = async (newData: { date: Date; key: string }, queryClient: ReturnType<typeof useQueryClient>): Promise<void> => {
   const { date, key } = newData;
@@ -29,15 +30,13 @@ const setDefaultTimeRange = async (newData: { date: Date; key: string }, queryCl
   }
 
   queryClient.setQueryData('timeRange', newDataToUpdate);
+
+  // Get resources for the new time range and update the data
+  const resourcesData = await getResourcesByFilterRequest(newDataToUpdate.fromDate, newDataToUpdate.toDate);
+  queryClient.setQueryData('resources', resourcesData);
 };
 
 export const setTimeRange = () => {
   const queryClient = useQueryClient();
-  return useMutation((newData: { date: Date; key: string }) => setDefaultTimeRange(newData, queryClient), {
-    onSuccess: () => {
-      // queryClient.invalidateQueries(['resources', timeRangeData.fromDate, timeRangeData.toDate]);
-      // queryClient.invalidateQueries('resources');
-      // queryClient.invalidateQueries('resourcesFilter');
-    },
-  });
+  return useMutation((newData: { date: Date; key: string }) => setDefaultTimeRange(newData, queryClient));
 };

@@ -25,8 +25,9 @@ const SelectDateContainer: React.FC<SelectDateContainerProps> = () => {
 	const { mutate: updateTimeRange } = setTimeRange();
 
 	const dateReplay = async () => {
+		const today = new Date();
 		updateTimeRange({
-			date: new Date(),
+			date: new Date(today.getFullYear(), today.getMonth(), 1),
 			key: 'reset',
 		});
 	};

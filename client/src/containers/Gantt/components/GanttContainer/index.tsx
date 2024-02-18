@@ -20,8 +20,6 @@ const GanttContainer: React.FC<GanttContainerProps> = ({ resources, timeRange })
           <TimeTable 
             timeRange={timeRange}
             resources={resources}
-            setPrevMonth={() => console.log('setPrevMonth')}
-            setNextMonth={() => console.log('setPrevMonth')}
           />
         </div>
       </GanttLayout>
